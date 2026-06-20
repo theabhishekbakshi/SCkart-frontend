@@ -6,11 +6,14 @@ import Cookies from 'js-cookie'
 import Loading from '@/components/Loading'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { UserData } from '@/context/UserContext'
 
 const OrderPage = () => {
     const {id} = useParams()
     const [order, setOrder] = useState(null)
     const [loading, setLoading] = useState(true)
+
+    const {user} = UserData() 
 
     const navigate = useNavigate();
 
@@ -46,7 +49,8 @@ const OrderPage = () => {
 
   return (
     <div className='container mx-auto py-6 px-4'>
-      <Card className="mb-6">
+      {
+        user._id === order.user._id || user.role === "admin" ? <><Card className="mb-6">
         <CardHeader>
             <div className="flex justify-between">
                 <CardTitle className="text-2xl font-bold">Order Details</CardTitle>
@@ -124,7 +128,12 @@ const OrderPage = () => {
                 </Card>
             ))
         }
-      </div>
+      </div></> : <p className='text-red-500 text-3xl text-center'>This is not your order <br/>
+        <Link to={'/'} className='mt-7 underline text-blue-400'>Go to HomePage</Link>
+      </p>
+
+      }
+      
     </div>
   )
 }
