@@ -7,7 +7,7 @@ import { UserProvider } from './context/UserContext'
 import { ProductProvider } from './context/ProductContext'
 import { CartProvider } from './context/CartContext'
 
-export const server = "http://localhost:8000";
+export const server = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export const categories = [
   "smartphone",
